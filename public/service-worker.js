@@ -31,41 +31,43 @@ self.addEventListener("activate", event => {
   );
 });
 
+self.addEventListener("fetch", event => {
+  console.log("aleph");
+  if (event.request.url.startsWith(self.location.origin)) {
+    if (event.request.url.includes("/api/")) {
+      console.log("beth");
+      event.respondWith(
+        caches.open(RUNTIME).then(cache => {
+          console.log("daleth");
+          return fetch(event.request).then(response => {
+            console.log("he");
+            if (response.status === 200) {
+              cache.put(event.request.url, response.clone());
+            }
+            return response;
+          });
+        })
+      );
+    }
+  }
+});
+
 // self.addEventListener("fetch", event => {
-//   console.log("aleph");
-//   if (event.request.url.includes("/api/")) {
-//     console.log("beth");
+//   if (event.request.url.startsWith(self.location.origin)) {
 //     event.respondWith(
-//       caches.open(RUNTIME).then(cache => {
-//         console.log("daleth");
-//         return fetch(event.request).then(response => {
-//           console.log("he");
-//           if (response.status === 200) {
-//             cache.put(event.request.url, response.clone());
-//           }
-//           return response;
+//       caches.match(event.request).then(cachedResponse => {
+//         if (cachedResponse) {
+//           return cachedResponse;
+//         }
+
+//         return caches.open(RUNTIME).then(cache => {
+//           return fetch(event.request).then(response => {
+//             return cache.put(event.request, response.clone()).then(() => {
+//               return response;
+//             });
+//           });
 //         });
 //       })
 //     );
 //   }
 // });
-
-self.addEventListener("fetch", event => {
-  if (event.request.url.startsWith(self.location.origin)) {
-    event.respondWith(
-      caches.match(event.request).then(cachedResponse => {
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-
-        return caches.open(RUNTIME).then(cache => {
-          return fetch(event.request).then(response => {
-            return cache.put(event.request, response.clone()).then(() => {
-              return response;
-            });
-          });
-        });
-      })
-    );
-  }
-});
