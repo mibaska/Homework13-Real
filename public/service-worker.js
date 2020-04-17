@@ -35,6 +35,7 @@ self.addEventListener("fetch", event => {
   console.log("aleph");
   if (event.request.url.startsWith(self.location.origin)) {
     console.log("beth");
+    console.log(self.location.origin);
     event.respondWith(
       caches.match(event.request).then(cachedResponse => {
         if (cachedResponse) {
