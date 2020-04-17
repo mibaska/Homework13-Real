@@ -112,7 +112,7 @@ function sendTransaction(isAdding) {
 
   // also send to server
   fetch("/api/transaction", {
-    method: "PUT",
+    method: "POST",
     body: JSON.stringify(transaction),
     headers: {
       Accept: "application/json, text/plain, */*",
