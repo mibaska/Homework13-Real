@@ -32,14 +32,18 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener("fetch", event => {
+  console.log("aleph");
   if (event.request.url.startsWith(self.location.origin)) {
+    console.log("beth");
     event.respondWith(
       caches.match(event.request).then(cachedResponse => {
         if (cachedResponse) {
+          console.log("gimel");
           return cachedResponse;
         }
 
         return caches.open(RUNTIME).then(cache => {
+          console.log("daleth");
           return fetch(event.request).then(response => {
             return cache.put(event.request, response.clone()).then(() => {
               return response;

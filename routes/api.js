@@ -11,19 +11,19 @@ router.post("/api/transaction", ({ body }, res) => {
     });
 });
 
-router.put("/api/transaction/:id", (req, res) => {
-  Transaction.updateOne(
-    { _id: req.params.id },
-    { name: req.params.name },
-    { value: req.params.value }
-    )
-  .then(dbTransaction => {
-    res.json(dbTransaction);
-  })
-  .catch(err => {
-    res.status(400).json(err);
-  });
-});
+// router.put("/api/transaction/:id", (req, res) => {
+//   Transaction.updateOne(
+//     { _id: req.params.id },
+//     { name: req.params.name },
+//     { value: req.params.value }
+//     )
+//   .then(dbTransaction => {
+//     res.json(dbTransaction);
+//   })
+//   .catch(err => {
+//     res.status(400).json(err);
+//   });
+// });
 
 router.post("/api/transaction/bulk", ({ body }, res) => {
   Transaction.insertMany(body)
