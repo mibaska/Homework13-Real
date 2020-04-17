@@ -11,16 +11,6 @@ router.post("/api/transaction", ({ body }, res) => {
     });
 });
 
-router.post("/api/transaction/bulk", ({ body }, res) => {
-  Transaction.insertMany(body)
-    .then(dbTransaction => {
-      res.json(dbTransaction);
-    })
-    .catch(err => {
-      res.status(400).json(err);
-    });
-});
-
 router.put("/api/transaction/:id", (req, res) => {
   Transaction.updateOne(
     { _id: req.params.id },
@@ -33,6 +23,16 @@ router.put("/api/transaction/:id", (req, res) => {
   .catch(err => {
     res.status(400).json(err);
   });
+});
+
+router.post("/api/transaction/bulk", ({ body }, res) => {
+  Transaction.insertMany(body)
+    .then(dbTransaction => {
+      res.json(dbTransaction);
+    })
+    .catch(err => {
+      res.status(400).json(err);
+    });
 });
 
 router.get("/api/transaction", (req, res) => {
