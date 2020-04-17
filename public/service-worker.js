@@ -45,7 +45,9 @@ self.addEventListener("fetch", event => {
         return caches.open(RUNTIME).then(cache => {
           console.log("daleth");
           return fetch(event.request).then(response => {
+            console.log("he");
             return cache.put(event.request, response.clone()).then(() => {
+              console.log("vau");
               return response;
             });
           });
