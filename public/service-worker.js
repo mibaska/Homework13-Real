@@ -46,6 +46,8 @@ self.addEventListener("fetch", event => {
           console.log("daleth");
           return fetch(event.request).then(response => {
             console.log("he");
+            console.log(event.request);
+            console.log(response);
             return cache.put(event.request, response.clone()).then(() => {
               console.log("vau");
               return response;
