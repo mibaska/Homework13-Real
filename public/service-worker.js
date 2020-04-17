@@ -3,7 +3,7 @@ const FILES_TO_CACHE = [
   "/index.html",
   "/style.css",
   "/db.js",
-  "/dist/bundle.js"
+  "/index.js"
 ];
 
 
