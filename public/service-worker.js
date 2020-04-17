@@ -33,22 +33,20 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   console.log("aleph");
-  if (event.request.url.startsWith(self.location.origin)) {
-    if (event.request.url.includes("/api/")) {
-      console.log("beth");
-      event.respondWith(
-        caches.open(RUNTIME).then(cache => {
-          console.log("daleth");
-          return fetch(event.request).then(response => {
-            console.log("he");
-            if (response.status === 200) {
-              cache.put(event.request.url, response.clone());
-            }
-            return response;
-          });
-        })
-      );
-    }
+  if (event.request.url.startsWith(self.location.origin) && event.request.url.includes("/api/")) {
+    console.log("beth");
+    event.respondWith(
+      caches.open(RUNTIME).then(cache => {
+        console.log("daleth");
+        return fetch(event.request).then(response => {
+          console.log("he");
+          if (response.status === 200) {
+            cache.put(event.request.url, response.clone());
+          }
+          return response;
+        });
+      })
+    );
   }
 });
 
