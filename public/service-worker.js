@@ -7,19 +7,18 @@ const FILES_TO_CACHE = [
 ];
 
 
-const PRECACHE = "precache-v1";
-const RUNTIME = "runtime";
+const CACHE_NAME = "static-cache-v2";
+const DATA_CACHE_NAME = "data-cache-v1";
 
 self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open(PRECACHE)
+    caches.open(CACHE_NAME)
       .then(cache => cache.addAll(FILES_TO_CACHE))
       .then(self.skipWaiting())
   );
 });
 
 self.addEventListener("activate", event => {
-  const currentCaches = [PRECACHE, RUNTIME];
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return cacheNames.filter(cacheName => !currentCaches.includes(cacheName));
@@ -33,27 +32,17 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   console.log("aleph");
-  if (event.request.url.startsWith(self.location.origin)) {
+  if (event.request.url.includes("/api/")) {
     console.log("beth");
-    console.log(self.location.origin);
     event.respondWith(
-      caches.match(event.request).then(cachedResponse => {
-        if (cachedResponse) {
-          console.log("gimel");
-          return cachedResponse;
-        }
-
-        return caches.open(RUNTIME).then(cache => {
-          console.log("daleth");
-          return fetch(event.request).then(response => {
-            console.log("he");
-            console.log(event.request);
-            console.log(response);
-            return cache.put(event.request, response.clone()).then(() => {
-              console.log("vau");
-              return response;
-            });
-          });
+      caches.open(DATA_CACHE_NAME).then(cache => {
+        console.log("daleth");
+        return fetch(event.request).then(response => {
+          console.log("he");
+          if (response.status === 200) {
+            cache.put(evt.request.url, response.clone());
+          }
+          return response;
         });
       })
     );
