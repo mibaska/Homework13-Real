@@ -8,7 +8,7 @@ const FILES_TO_CACHE = [
 
 
 const PRECACHE = "precache-v1";
-const DATA_CACHE_NAME = "data-cache-v1";
+const RUNTIME = "runtime";
 
 self.addEventListener("install", event => {
   event.waitUntil(
@@ -23,7 +23,7 @@ self.addEventListener("activate", event => {
     caches.keys().then(keyList => {
       return Promise.all(
         keyList.map(key => {
-          if (key !== PRECACHE && key !== DATA_CACHE_NAME) {
+          if (key !== PRECACHE && key !== RUNTIME) {
             return caches.delete(key);
           }
       }));
@@ -36,7 +36,7 @@ self.addEventListener("fetch", event => {
   if (event.request.url.includes("/api/")) {
     console.log("beth");
     event.respondWith(
-      caches.open(DATA_CACHE_NAME).then(cache => {
+      caches.open(RUNTIME).then(cache => {
         console.log("daleth");
         return fetch(event.request).then(response => {
           console.log("he");
