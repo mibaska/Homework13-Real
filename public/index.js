@@ -121,7 +121,6 @@ function sendTransaction(isAdding) {
   })
     .then(response => response.json())
     .then(data => {
-      console.log("aleph");
       console.log("agrippa", transaction);
       console.log("loazi", data);
       if (data.errors) {
