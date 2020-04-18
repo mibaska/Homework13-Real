@@ -127,6 +127,7 @@ function sendTransaction(isAdding) {
         errorEl.textContent = "Missing Information";
       } else {
         console.log("gimel");
+        saveRecord(transaction);
         // clear form
         nameEl.value = "";
         amountEl.value = "";
