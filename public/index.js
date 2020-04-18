@@ -113,7 +113,7 @@ function sendTransaction(isAdding) {
   // also send to server
   fetch("/api/transaction", {
     method: "POST",
-    body: JSON.stringify(data),
+    body: JSON.stringify(transaction),
     headers: {
       Accept: "application/json, text/plain, */*",
       "Content-Type": "application/json"
@@ -131,7 +131,7 @@ function sendTransaction(isAdding) {
     })
     .catch(err => {
       // fetch failed, so save in indexed db
-      saveRecord(data);
+      saveRecord(transaction);
 
       // clear form
       nameEl.value = "";

@@ -9,7 +9,7 @@ const FILES_TO_CACHE = [
 
 const PRECACHE = "precache-v1";
 const RUNTIME = "runtime";
-
+const DATA_CACHE_NAME = "data-cache-v1";
 
 self.addEventListener("install", event => {
   event.waitUntil(
@@ -42,7 +42,7 @@ self.addEventListener("fetch", event => {
           return cachedResponse;
         }
 
-        return caches.open(RUNTIME).then(cache => {
+        return caches.open(DATA_CACHE_NAME).then(cache => {
           console.log("daleth");
           return fetch(event.request).then(response => {
             console.log("he");
@@ -66,8 +66,7 @@ self.addEventListener("fetch", event => {
 //         }
 
 //         return caches.open(RUNTIME).then(cache => {
-//           return fetch(event.request).then(response => {
-//             console.log("he");
+//           return fetch(event.request).then(response => {\
 //             if (response.status === 200) {
 //               cache.put(event.request.url, response.clone());
 //             }
