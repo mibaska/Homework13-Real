@@ -33,7 +33,7 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   console.log("aleph");
-  if (evt.request.url.includes("/api/")) {
+  if (event.request.url.includes("/api/")) {
     console.log("beth");
     event.respondWith(
       caches.open(RUNTIME).then(cache => {
