@@ -122,11 +122,12 @@ function sendTransaction(isAdding) {
     .then(response => response.json())
     .then(data => {
       console.log("aleph");
+      console.log("agrippa", transaction);
+      console.log("loazi", data);
       if (data.errors) {
-        console.log("beth")
+        console.log("beth");
         errorEl.textContent = "Missing Information";
       } else {
-        console.log(transaction);
         console.log("gimel");
         saveRecord(transaction);
         console.log("daleth");
