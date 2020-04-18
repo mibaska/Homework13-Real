@@ -14,6 +14,7 @@ fetch("/api/transaction")
 
 function populateTotal() {
   // reduce transacion amounts to a single total value
+  console.log(transactions.length);
   if(transactions.length === 0) {
     var total = 0;
   } else {
