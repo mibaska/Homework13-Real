@@ -19,8 +19,9 @@ function populateTotal() {
     valueArray.push(value);
   }
   console.log(valueArray);
-  var total = valueArray.reduce(t => {
-    return total + parseInt(t);
+  var total = valueArray.forEach(t => {
+    total + parseInt(t);
+    return total;
   }, 0);
 
   const totalEl = document.querySelector("#total");
