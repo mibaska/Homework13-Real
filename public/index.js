@@ -111,7 +111,7 @@ function sendTransaction(isAdding) {
   populateTotal();
 
   // also send to server
-  fetch("/transaction", {
+  fetch("/api/transaction", {
     method: "POST",
     body: JSON.stringify(transaction),
     headers: {

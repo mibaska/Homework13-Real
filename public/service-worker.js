@@ -31,30 +31,30 @@ self.addEventListener("activate", event => {
   );
 });
 
-self.addEventListener("fetch", event => {
-  console.log("aleph");
-  if (event.request.url.startsWith(self.location.origin)) {
-    console.log("beth");
-    event.respondWith(
-      caches.match(event.request).then(cachedResponse => {
-        if (cachedResponse) {
-          return cachedResponse;
-        }
+// self.addEventListener("fetch", event => {
+//   console.log("aleph");
+//   if (event.request.url.startsWith(self.location.origin)) {
+//     console.log("beth");
+//     event.respondWith(
+//       caches.match(event.request).then(cachedResponse => {
+//         if (cachedResponse) {
+//           return cachedResponse;
+//         }
 
-        return caches.open(RUNTIME).then(cache => {
-          console.log("daleth");
-          return fetch(event.request).then(response => {
-            console.log("he");
-            if (response.status === 200) {
-              cache.put(event.request.url, response.clone());
-            }
-            return response;
-          });
-        });
-      })
-    );
-  }
-});
+//         return caches.open(RUNTIME).then(cache => {
+//           console.log("daleth");
+//           return fetch(event.request).then(response => {
+//             console.log("he");
+//             if (response.status === 200) {
+//               cache.put(event.request.url, response.clone());
+//             }
+//             return response;
+//           });
+//         });
+//       })
+//     );
+//   }
+// });
 
 // self.addEventListener("fetch", event => {
 //   if (event.request.url.startsWith(self.location.origin)) {
@@ -78,23 +78,23 @@ self.addEventListener("fetch", event => {
 //   }
 // });
 
-// self.addEventListener("fetch", function(event) {
-//   if (event.request.url.includes("/api/")) {
-//     event.respondWith(
-//       caches.open(DATA_CACHE_NAME).then(cache => {
-//         return fetch(event.request)
-//           .then(response => {
-//             if (response.status === 200) {
-//               cache.put(event.request.url, response.clone());
-//             }
+self.addEventListener("fetch", function(event) {
+  if (event.request.url.startsWith(self.location.origin)) {
+    event.respondWith(
+      caches.open(DATA_CACHE_NAME).then(cache => {
+        return fetch(event.request)
+          .then(response => {
+            if (response.status === 200) {
+              cache.put(event.request.url, response.clone());
+            }
 
-//             return response;
-//           })
-//           .catch(err => {
-//             return cache.match(event.request);
-//           });
-//       }).catch(err => console.log(err))
-//     );
+            return response;
+          })
+          .catch(err => {
+            return cache.match(event.request);
+          });
+      }).catch(err => console.log(err))
+    );
 
-//     return;
-// }});
+    return;
+}});
