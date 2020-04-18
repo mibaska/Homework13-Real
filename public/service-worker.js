@@ -81,7 +81,7 @@ self.addEventListener("activate", event => {
 self.addEventListener("fetch", function(event) {
   if (event.request.url.startsWith(self.location.origin)) {
     event.respondWith(
-      caches.open(DATA_CACHE_NAME).then(cache => {
+      caches.open(RUNTIME).then(cache => {
         return fetch(event.request)
           .then(response => {
             if (response.status === 200) {
