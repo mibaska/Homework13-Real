@@ -23,7 +23,7 @@ function populateTotal() {
       total += parseInt(t.value);
       console.log("lucian", total);
       return total;
-    });
+    }, 0);
   };
 
   const totalEl = document.querySelector("#total");
