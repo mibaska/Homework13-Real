@@ -132,6 +132,7 @@ function sendTransaction(isAdding) {
         // clear form
         nameEl.value = "";
         amountEl.value = "";
+        console.log("he");
       }
     })
     .catch(err => {
