@@ -16,9 +16,9 @@ function populateTotal() {
   // reduce transacion amounts to a single total value
   let total = 0;
   total = transactions.map(t => {
-    console.log(t.value);
+    console.log("buddha", t.value);
     total += parseInt(t.value);
-    console.log(total);
+    console.log("lucian", total);
     return total;
   });
 
