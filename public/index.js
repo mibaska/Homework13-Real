@@ -15,20 +15,17 @@ fetch("/api/transaction")
 function populateTotal() {
   // reduce transacion amounts to a single total value
   console.log(transactions.length);
-  if(transactions.length === 0) {
-    var total = 0;
-  } else {
-    var total = transactions.forEach(t => {
-      console.log("buddha", t);
-      total += parseInt(t.value);
-      console.log("lucian", total);
-      return total;
-    }, 0);
-  };
+  var total = 0;
+  total = transactions.forEach(t => {
+    console.log("buddha", t);
+    total += parseInt(t.value);
+    console.log("lucian", total);
+    return total;
+  });
 
   const totalEl = document.querySelector("#total");
   totalEl.textContent = total;
-}
+};
 
 function populateTable() {
   const tbody = document.querySelector("#tbody");
