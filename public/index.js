@@ -15,12 +15,11 @@ fetch("/api/transaction")
 function populateTotal() {
   // reduce transacion amounts to a single total value
   console.log(transactions.length);
-  var total = 0;
-  total = transactions.forEach(t => {
+  var total = transactions.forEach(t => {
     console.log("buddha", t);
     console.log("lucian", total);
     return total + parseInt(t.value);
-  });
+  }, 0);
 
   const totalEl = document.querySelector("#total");
   totalEl.textContent = total;
