@@ -20,7 +20,8 @@ function populateTotal() {
   }
   console.log(valueArray);
   var total = valueArray.forEach(t => {
-    total + parseInt(t);
+    console.log(t);
+    total + t;
     return total;
   }, 0);
 
