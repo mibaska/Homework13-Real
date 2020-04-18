@@ -121,15 +121,19 @@ function sendTransaction(isAdding) {
   })
     .then(response => response.json())
     .then(data => {
+      console.log("aleph");
       if (data.errors) {
+        console.log("beth")
         errorEl.textContent = "Missing Information";
       } else {
+        console.log("gimel");
         // clear form
         nameEl.value = "";
         amountEl.value = "";
       }
     })
     .catch(err => {
+      console.log("daleth");
       // fetch failed, so save in indexed db
       saveRecord(transaction);
 
