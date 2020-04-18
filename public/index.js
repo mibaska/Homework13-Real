@@ -15,7 +15,7 @@ fetch("/api/transaction")
 function populateTotal() {
   // reduce transacion amounts to a single total value
   let total = 0;
-  total = reversed.map(t => {
+  total = transactions.map(t => {
     total += parseInt(t.value);
     return total;
   });
