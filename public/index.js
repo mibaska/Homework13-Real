@@ -15,6 +15,7 @@ fetch("/api/transaction")
 
 function populateTotal() {
   for(i = 0; i < transactions.length; i++) {
+    console.log(transactions[i]);
     var value = parseInt(transactions[i]);
     valueArray.push(value);
   }
