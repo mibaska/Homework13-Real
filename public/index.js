@@ -128,13 +128,13 @@ function sendTransaction(isAdding) {
       } else {
         console.log("gimel");
         saveRecord(transaction);
+        console.log("daleth");
         // clear form
         nameEl.value = "";
         amountEl.value = "";
       }
     })
     .catch(err => {
-      console.log("daleth");
       // fetch failed, so save in indexed db
       saveRecord(transaction);
 
