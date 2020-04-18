@@ -9,7 +9,7 @@ const FILES_TO_CACHE = [
 
 const PRECACHE = "precache-v1";
 const RUNTIME = "runtime";
-const DATA_CACHE_NAME = "data-cache-v1";
+
 
 self.addEventListener("install", event => {
   event.waitUntil(
@@ -32,70 +32,67 @@ self.addEventListener("activate", event => {
   );
 });
 
-// self.addEventListener("fetch", event => {
-//   console.log("aleph");
-//   if (event.request.url.startsWith(self.location.origin)) {
-//     console.log("beth");
-//     event.respondWith(
-//       caches.match(event.request).then(cachedResponse => {
-//         if (cachedResponse) {
-//           return cachedResponse;
-//         }
-
-//         return caches.open(RUNTIME).then(cache => {
-//           console.log("daleth");
-//           return fetch(event.request).then(response => {
-//             console.log("he");
-//             if (response.status === 200) {
-//               cache.put(event.request.url, response.clone());
-//             }
-//             return response;
-//           });
-//         });
-//       })
-//     );
-//   }
-// });
-
-// self.addEventListener("fetch", event => {
-//   if (event.request.url.startsWith(self.location.origin)) {
-//     event.respondWith(
-//       caches.match(event.request).then(cachedResponse => {
-//         if (cachedResponse) {
-//           return cachedResponse;
-//         }
-
-//         return caches.open(RUNTIME).then(cache => {
-//           return fetch(event.request).then(response => {
-//             console.log("he");
-//             if (response.status === 200) {
-//               cache.put(event.request.url, response.clone());
-//             }
-//             return response;
-//           });
-//         });
-//       })
-//     );
-//   }
-// });
-
-self.addEventListener("fetch", function(event) {
+self.addEventListener("fetch", event => {
+  console.log("aleph");
   if (event.request.url.startsWith(self.location.origin)) {
+    console.log("beth");
     event.respondWith(
-      caches.open(DATA_CACHE_NAME).then(cache => {
-        return fetch(event.request)
-          .then(response => {
+      caches.match(event.request).then(cachedResponse => {
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+
+        return caches.open(RUNTIME).then(cache => {
+          console.log("daleth");
+          return fetch(event.request).then(response => {
+            console.log("he");
             if (response.status === 200) {
               cache.put(event.request.url, response.clone());
             }
-
             return response;
-          })
-          .catch(err => {
-            return cache.match(event.request);
-          });
-      }).catch(err => console.log(err))
+          }).catch(err => {return cache.match(event.request);});
+        }).catch(err => console.log(err))
+      })
     );
+  }
+});
 
-    return;
-}});
+// self.addEventListener("fetch", event => {
+//   if (event.request.url.startsWith(self.location.origin)) {
+//     event.respondWith(
+//       caches.match(event.request).then(cachedResponse => {
+//         if (cachedResponse) {
+//           return cachedResponse;
+//         }
+
+//         return caches.open(RUNTIME).then(cache => {
+//           return fetch(event.request).then(response => {
+//             console.log("he");
+//             if (response.status === 200) {
+//               cache.put(event.request.url, response.clone());
+//             }
+//             return response;
+//           });
+//         });
+//       })
+//     );
+//   }
+// });
+
+// self.addEventListener("fetch", function(event) {
+//   if (evt.request.url.includes("/api/")) {
+//     event.respondWith(
+//       caches.open(RUNTIME).then(cache => {
+//         return fetch(event.request)
+//           .then(response => {
+//             if (response.status === 200) {
+//               cache.put(event.request.url, response.clone());
+//             }
+
+//             return response;
+//           }).catch(err => {return cache.match(event.request);});
+//       }).catch(err => console.log(err))
+//     );
+
+//     return;
+// }});
