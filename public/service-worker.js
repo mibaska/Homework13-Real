@@ -56,45 +56,45 @@ self.addEventListener("activate", event => {
 //   }
 // });
 
-// self.addEventListener("fetch", event => {
-//   if (event.request.url.startsWith(self.location.origin)) {
-//     event.respondWith(
-//       caches.match(event.request).then(cachedResponse => {
-//         if (cachedResponse) {
-//           return cachedResponse;
-//         }
-
-//         return caches.open(RUNTIME).then(cache => {
-//           return fetch(event.request).then(response => {
-//             console.log("he");
-//             if (response.status === 200) {
-//               cache.put(event.request.url, response.clone());
-//             }
-//             return response;
-//           });
-//         });
-//       })
-//     );
-//   }
-// });
-
-self.addEventListener("fetch", function(event) {
+self.addEventListener("fetch", event => {
   if (event.request.url.startsWith(self.location.origin)) {
     event.respondWith(
-      caches.open(RUNTIME).then(cache => {
-        return fetch(event.request)
-          .then(response => {
+      caches.match(event.request).then(cachedResponse => {
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+
+        return caches.open(RUNTIME).then(cache => {
+          return fetch(event.request).then(response => {
+            console.log("he");
             if (response.status === 200) {
               cache.put(event.request.url, response.clone());
             }
-
             return response;
-          })
-          .catch(err => {
-            return cache.match(event.request);
           });
-      }).catch(err => console.log(err))
+        });
+      })
     );
+  }
+});
 
-    return;
-}});
+// self.addEventListener("fetch", function(event) {
+//   if (evt.request.url.includes("/api/")) {
+//     event.respondWith(
+//       caches.open(RUNTIME).then(cache => {
+//         return fetch(event.request)
+//           .then(response => {
+//             if (response.status === 200) {
+//               cache.put(event.request.url, response.clone());
+//             }
+
+//             return response;
+//           })
+//           .catch(err => {
+//             return cache.match(event.request);
+//           });
+//       }).catch(err => console.log(err))
+//     );
+
+//     return;
+// }});
