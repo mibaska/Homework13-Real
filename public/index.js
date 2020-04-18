@@ -1,52 +1,52 @@
-let transactions = [];
-let valueArray =[];
+// let transactions = [];
+// let valueArray =[];
 let myChart;
 let i;
 
 fetch("/api/transaction")
   .then(response => response.json())
   .then(data => {
-    transactions.push(data);
-    console.log(transactions[0]);
+    // transactions.push(data);
+    // console.log(transactions[0]);
     populateTotal();
     populateTable();
     populateChart();
   });
 
 function populateTotal() {
-  for(i = 0; i < transactions.length; i++) {
-    console.log(transactions[i]);
-    var value = parseInt(transactions[i]);
-    valueArray.push(value);
-  }
-  console.log(valueArray);
-  var total = valueArray.forEach(t => {
-    console.log(t);
-    total + t;
-    return total;
-  }, 0);
+  // for(i = 0; i < transactions.length; i++) {
+  //   console.log(transactions[i]);
+  //   var value = parseInt(transactions[i]);
+  //   valueArray.push(value);
+  // }
+  // console.log(valueArray);
+  // var total = valueArray.forEach(t => {
+  //   console.log(t);
+  //   total + t;
+  //   return total;
+  // }, 0);
 
-  const totalEl = document.querySelector("#total");
-  totalEl.textContent = total;
+  // const totalEl = document.querySelector("#total");
+  // totalEl.textContent = total;
 };
 
 function populateTable() {
   const tbody = document.querySelector("#tbody");
   tbody.innerHTML = "";
 
-  transactions.forEach(transaction => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${transaction.name}</td>
-      <td>${transaction.value}</td>
-    `;
+  // transactions.forEach(transaction => {
+  //   const tr = document.createElement("tr");
+  //   tr.innerHTML = `
+  //     <td>${transaction.name}</td>
+  //     <td>${transaction.value}</td>
+  //   `;
 
     tbody.appendChild(tr);
-  });
+  // });
 }
 
 function populateChart() {
-  const reversed = transactions.slice().reverse();
+  // const reversed = transactions.slice().reverse();
   let sum = 0;
 
   const labels = reversed.map(t => {
@@ -103,7 +103,7 @@ function sendTransaction(isAdding) {
     transaction.value *= -1;
   }
 
-  transactions.unshift(transaction);
+  // transactions.unshift(transaction);
 
   populateChart();
   populateTable();
