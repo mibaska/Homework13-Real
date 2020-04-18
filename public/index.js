@@ -126,8 +126,8 @@ function sendTransaction(isAdding) {
         console.log("beth")
         errorEl.textContent = "Missing Information";
       } else {
-        console.log("gimel");
         console.log(transaction);
+        console.log("gimel");
         saveRecord(transaction);
         console.log("daleth");
         // clear form
