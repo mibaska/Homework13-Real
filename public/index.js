@@ -18,9 +18,8 @@ function populateTotal() {
   var total = 0;
   total = transactions.forEach(t => {
     console.log("buddha", t);
-    total += parseInt(t.value);
     console.log("lucian", total);
-    return total;
+    return total + parseInt(t.value);
   });
 
   const totalEl = document.querySelector("#total");
